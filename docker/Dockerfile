@@ -5,11 +5,14 @@ FROM python:3.9 as build-stage
 # Устанавливаем рабочую директорию внутри образа
 WORKDIR /app
 
-# Копируем текущую директорию в рабочую директорию внутри образа
-COPY . .
+# Копируем только requirements.txt и устанавливаем зависимости
+COPY src/requirements.txt .
 
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем текущую директорию в рабочую директорию внутри образа
+COPY src/ .
 
 # Команда для запуска приложения
 CMD ["python", "app.py"]
@@ -18,5 +21,5 @@ CMD ["python", "app.py"]
 FROM python:3.9-alpine AS runtime-stage
 WORKDIR /app
 COPY --from=build-stage /app /app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 CMD ["python", "app.py"]
