@@ -16,4 +16,7 @@ build/
 *.env
 
 # Игнорировать все прочие файлы, которые не нужны в репозитории
-# some-other-folder/
+.terraform/
+*.tfstate
+*.tfstate.backup
+

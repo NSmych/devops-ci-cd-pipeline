@@ -21,5 +21,5 @@ CMD ["python", "app.py"]
 FROM python:3.9-alpine AS runtime-stage
 WORKDIR /app
 COPY --from=build-stage /app /app
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "app.py"]
