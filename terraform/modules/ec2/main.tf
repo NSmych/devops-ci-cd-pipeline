@@ -8,6 +8,7 @@ resource "aws_instance" "web_server_instance" {
 
   user_data = <<-EOF
                 #!/bin/bash
+                set -e # Остановить скрипт при первой же ошибке
                 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
                 apt-get update -y
                 apt-get install -y docker.io
